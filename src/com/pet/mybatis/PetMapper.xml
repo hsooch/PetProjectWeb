@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Pet">
+	<sql id="select">
+		select * from pet
+	</sql>
+	<select id="selectMember" resultType="Pet" parameterType="int">
+		<include refid="select" />
+		where member_id=#{member_id} order by pet_id desc
+	</select>
+	<select id="selectOne" parameterType="int" resultType="Pet">
+		<include refid="select" />
+		where pet_id=#{pet_id}
+	</select>
+	<insert id="insert" parameterType="Pet">
+		<selectKey order="AFTER" resultType="int" keyProperty="pet_id">
+			select last_insert_id()
+		</selectKey>
+		insert into
+		pet(member_id,gender,goja,name,type,kind,filename,content,pet_number)
+		values(#{member_id},#{gender},#{goja},#{name},#{type},#{kind},#{filename},#{content},#{pet_number})
+	</insert>
+	<update id="update" parameterType="Pet">
+		update pet set
+		member_id=#{member_id},
+		gender=#{gender},goja=#{goja},name=#{name},type=#{type},kind=#{kind},filename=#{filename},content=#{content},pet_number=#{pet_number}
+		where pet_id=#{pet_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from pet where
+		pet_id=#{pet_id}
+	</delete>
+	<delete id="deleteMember" parameterType="int">
+		delete from pet where
+		member_id=#{member_id}
+	</delete>
+</mapper>

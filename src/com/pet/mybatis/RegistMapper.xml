@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Regist">
+	<sql id="select">
+		select * from regist
+	</sql>
+	<select id="selectAll" resultType="Regist">
+		<include refid="select" />
+		order by regist_id desc
+	</select>
+	<select id="selectOne" parameterType="int" resultType="Regist">
+		<include refid="select" />
+		where regist_id=#{regist_id}
+	</select>
+	<insert id="insert" parameterType="Regist">
+		<selectKey order="AFTER" resultType="int" keyProperty="regist_id">
+			select last_insert_id()
+		</selectKey>
+		insert into
+		regist(title,content,type,member_id,filename,pet_id)
+		values(#{title},#{content},#{type},#{member_id},#{filename},#{pet_id})
+	</insert>
+	<update id="update" parameterType="Regist">
+		update regist set
+		title=#{title},
+		content=#{content},type=#{type},member_id=#{member_id},filename=#{filename},pet_id=#{pet_id}
+		where regist_id=#{regist_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from regist where
+		regist_id=#{regist_id}
+	</delete>
+	<delete id="deleteMember" parameterType="int">
+		delete from regist where
+		member_id=#{member_id}
+	</delete>
+</mapper>

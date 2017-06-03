@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Reply">
+	<sql id="select">
+		select * from reply
+	</sql>
+
+	<select id="selectOne" parameterType="int" resultType="Reply">
+		<include refid="select" />
+		where reply_id=#{reply_id}
+	</select>
+	<select id="selectRegist" parameterType="int" resultType="Reply">
+		<include refid="select" />
+		where regist_id=#{regist_id}
+		order by reply_id desc
+	</select>
+	<insert id="insert" parameterType="Reply">
+		insert into
+		reply(member_id,regist_id,content)
+		values(#{member_id},#{regist_id},#{content})
+	</insert>
+	<update id="update" parameterType="Reply">
+		update reply set
+		content=#{content}where reply_id=#{reply_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from reply where
+		reply_id=#{reply_id}
+	</delete>
+	<delete id="deleteRegist" parameterType="int">
+		delete from reply where
+		regist_id=#{regist_id}
+	</delete>
+	<delete id="deleteMember" parameterType="int">
+		delete from reply where
+		member_id=#{member_id}
+	</delete>
+</mapper>

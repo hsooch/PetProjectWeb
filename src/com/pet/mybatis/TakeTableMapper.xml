@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TakeTable">
+	<sql id="select">
+		select g.*, m.nick as nick from taketable g, member m where
+		g.member_id=m.member_id
+	</sql>
+	<select id="selectAll" resultType="TakeTable">
+		<include refid="select" />
+		order by taketable_id desc
+	</select>
+	<select id="selectMember" resultType="TakeTable" parameterType="String">
+		<include refid="select" />
+		and member_id=#{member_id} order by taketable_id desc
+	</select>
+	<select id="selectOne" parameterType="int" resultType="TakeTable">
+		<include refid="select" />
+		and taketable_id=#{taketable_id}
+	</select>
+	<insert id="insert" parameterType="TakeTable">
+		<selectKey order="AFTER" resultType="int" keyProperty="taketable_id">
+			select last_insert_id()
+		</selectKey>
+		insert into
+		taketable(member_id,title
+		,abata,content,okday,regdate,filename,location,loc,locx,locy)
+		values(#{member_id},#{title},#{abata},#{content},#{okday},#{regdate},#{filename},#{location},#{loc},#{locx},#{locy})
+	</insert>
+	<update id="update" parameterType="TakeTable">
+		update taketable set
+		member_id=#{member_id},title=#{title},abata=#{abata},content=#{content},okday=#{okday},regdate=#{regdate},filename=#{filename},location=#{location},loc=#{loc},locx=#{locx},locy=#{locy}
+		where taketable_id=#{taketable_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from taketable where
+		taketable_id=#{taketable_id}
+	</delete>
+	<delete id="deleteMember" parameterType="String">
+		delete from gettable
+		where
+		member_id=#{member_id}
+	</delete>
+</mapper>

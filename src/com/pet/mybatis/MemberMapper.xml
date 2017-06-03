@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member">
+	<sql id="select">
+		select * from member
+	</sql>
+	<select id="selectAll" resultType="Member">
+		<include refid="select" />
+		order by member_id desc
+	</select>
+	<select id="selectNick" parameterType="String" resultType="Member">
+		<include refid="select" />
+		where id=#{id}
+	</select>
+	<select id="selectId" parameterType="String" resultType="Member">
+		<include refid="select" />
+		where nick=#{nick}
+	</select>
+	<insert id="insert" parameterType="Member">
+		insert into
+		member(id,nick,good,caution)
+		values(#{id},#{nick},#{good},#{caution})
+	</insert>
+	<update id="update" parameterType="Member">
+		update member set
+		nick=#{nick},good=#{good},caution=#{caution}
+		where
+		member_id=#{member_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from member where
+		member_id=#{member_id}
+	</delete>
+</mapper>

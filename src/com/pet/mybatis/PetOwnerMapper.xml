@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PetOwner">
+	<sql id="select">
+		select * from petowner
+	</sql>
+	<select id="selectAll" resultType="PetOwner">
+		<include refid="select" />
+		order by petowner_id desc
+	</select>
+	<select id="selectMember" resultType="PetOwner" parameterType="String">
+		<include refid="select" />
+		where member_id=#{member_id} order by petowner_id desc
+	</select>
+	<select id="selectOne" parameterType="int" resultType="PetOwner">
+		<include refid="select" />
+		where petowner_id=#{petOwner_id}
+	</select>
+	<insert id="insert" parameterType="PetOwner">
+		<selectKey order="AFTER" resultType="int" keyProperty="petOwner_id">
+			select last_insert_id()
+		</selectKey>
+		insert into
+		petowner(photo, name,
+		whatKind,registNumber,address,contactPoint,isOperation,isRegularCheck,boy,girl,sex,member_id,email,loc,locx,locy)
+		values(#{photo},#{name},#{whatKind},#{registNumber},#{address},#{contactPoint},#{isOperation},#{isRegularCheck},#{boy},#{girl},#{sex},#{member_id},#{email},#{loc},#{locx},#{locy})
+	</insert>
+	<update id="update" parameterType="PetOwner">
+		update petowner set
+		photo=#{photo},name=#{name},whatKind=#{whatKind},registNumber=#{registNumber},address=#{address},contactPoint=#{contactPoint},isOperation=#{isOperation},isRegularCheck=#{isRegularCheck},boy=#{boy},girl=#{girl},sex=#{sex},member_id=#{member_id},email=#{email},loc=#{loc},locx=#{locx},locy=#{locy}
+		where petowner_id=#{petOwner_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from petowner where
+		petowner_id=#{petOwner_id}
+	</delete>
+	<delete id="deleteMember" parameterType="String">
+		delete from petowner
+		where
+		member_id=#{member_id}
+	</delete>
+</mapper>

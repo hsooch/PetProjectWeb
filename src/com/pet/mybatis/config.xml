@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.pet.test.Test" alias="Test" />
+		<typeAlias type="com.pet.member.model.domain.Member" alias="Member" />
+		<typeAlias type="com.pet.pet.model.domain.Pet" alias="Pet" />
+		<typeAlias type="com.pet.regist.model.domain.Regist" alias="Regist" />
+		<typeAlias type="com.pet.registphoto.model.domain.RegistPhoto"
+			alias="RegistPhoto" />
+		<typeAlias type="com.pet.reply.model.domain.Reply" alias="Reply" />
+		<typeAlias type="com.pet.gettable.domain.GetTable" alias="GetTable" />
+		<typeAlias type="com.pet.taketable.domain.TakeTable" alias="TakeTable" />
+		<typeAlias type="com.pet.petowner.domain.PetOwner" alias="PetOwner" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/pet/mybatis/TestMapper.xml" />
+		<mapper resource="com/pet/mybatis/MemberMapper.xml" />
+		<mapper resource="com/pet/mybatis/PetMapper.xml" />
+		<mapper resource="com/pet/mybatis/RegistMapper.xml" />
+		<mapper resource="com/pet/mybatis/RegistPhotoMapper.xml" />
+		<mapper resource="com/pet/mybatis/ReplyMapper.xml" />
+		<mapper resource="com/pet/mybatis/GetTableMapper.xml" />
+		<mapper resource="com/pet/mybatis/TakeTableMapper.xml" />
+		<mapper resource="com/pet/mybatis/PetOwnerMapper.xml" />
+	</mappers>
+</configuration>

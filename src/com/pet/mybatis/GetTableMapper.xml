@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GetTable">
+	<sql id="select">
+		select m.nick as nick, g.*from gettable g, member m where
+		g.member_id=m.member_id
+	</sql>
+	<select id="selectAll" resultType="GetTable">
+		<include refid="select" />
+		order by gettable_id desc
+	</select>
+	<select id="selectMember" resultType="GetTable" parameterType="String">
+		<include refid="select" />
+		and member_id=#{member_id} order by gettable_id desc
+	</select>
+	<select id="selectOne" parameterType="int" resultType="GetTable">
+		<include refid="select" />
+		and gettable_id=#{gettable_id}
+	</select>
+	<insert id="insert" parameterType="GetTable">
+		<selectKey order="AFTER" resultType="int" keyProperty="gettable_id">
+			select last_insert_id()
+		</selectKey>
+		insert into
+		gettable(title, member_id, abata
+		,gender,goja,name,type,kind,filename,content,okday)
+		values(#{title},
+		#{member_id},#{abata},#{gender},#{goja},#{name},#{type},#{kind},#{filename},#{content},#{okday})
+	</insert>
+	<update id="update" parameterType="GetTable">
+		update gettable set
+		member_id=#{member_id},title=#{title},abata=#{abata},gender=#{gender},goja=#{goja},name=#{name},type=#{type},kind=#{kind},filename=#{filename},content=#{content},okday=#{okday}
+		where gettable_id=#{gettable_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from gettable where
+		gettable_id=#{gettable_id}
+	</delete>
+	<delete id="deleteMember" parameterType="String">
+		delete from gettable
+		where
+		member_id=#{member_id}
+	</delete>
+</mapper>
